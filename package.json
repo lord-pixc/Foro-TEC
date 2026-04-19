@@ -11,25 +11,18 @@
     "dev": "pnpm --parallel --stream --filter @forotec/api --filter @forotec/web dev",
     "dev:api": "pnpm --filter @forotec/api dev",
     "dev:web": "pnpm --filter @forotec/web dev",
-
     "build": "pnpm --filter @forotec/api build && pnpm --filter @forotec/web build",
     "build:api": "pnpm --filter @forotec/api build",
     "build:web": "pnpm --filter @forotec/web build",
-
     "start": "pnpm --parallel --stream --filter @forotec/api --filter @forotec/web start",
     "start:api": "pnpm --filter @forotec/api start",
     "start:web": "pnpm --filter @forotec/web start",
-
     "lint": "pnpm -r --if-present lint",
     "lint:fix": "pnpm -r --if-present lint:fix",
-
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-
     "typecheck": "pnpm -r --if-present typecheck",
-
     "check": "pnpm lint && pnpm typecheck && pnpm build",
-
     "prisma:generate": "pnpm --filter @forotec/api prisma:generate",
     "prisma:migrate": "pnpm --filter @forotec/api prisma:migrate",
     "prisma:deploy": "pnpm --filter @forotec/api prisma:deploy",
@@ -37,16 +30,14 @@
     "db:push": "pnpm --filter @forotec/api db:push",
     "db:seed": "pnpm --filter @forotec/api db:seed",
     "db:reset": "pnpm --filter @forotec/api db:reset",
-
     "clean": "find . \\( -name node_modules -o -name dist -o -name .next -o -name coverage \\) -type d -prune -exec rm -rf '{}' +",
     "clean:lock": "rm -f pnpm-lock.yaml",
     "reinstall": "pnpm run clean && pnpm install",
-
     "postinstall": "pnpm prisma:generate"
   },
   "devDependencies": {
     "eslint": "^9.0.0",
     "prettier": "^3.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.9.3"
   }
 }
