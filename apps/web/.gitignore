@@ -40,6 +40,7 @@ next-env.d.ts
 *.db-journal
 *.sqlite
 *.sqlite3
+generated/
 
 # caches
 .eslintcache
@@ -47,7 +48,6 @@ next-env.d.ts
 .cache/
 
 # editors
-.vscode/
 .idea/
 *.swp
 *.swo
