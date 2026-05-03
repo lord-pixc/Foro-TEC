@@ -1,0 +1,108 @@
+generator client {
+  provider               = "prisma-client"
+  engineType             = "client"
+  output                 = "./generated"
+  runtime                = "nodejs"
+  moduleFormat           = "esm"
+  generatedFileExtension = "ts"
+  importFileExtension    = "ts"
+  previewFeatures        = ["typedSql"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id         String   @id @default(dbgenerated("snowflake()"))
+  name       String
+  username   String   @unique
+  email      String   @unique
+  avatar     String?
+  banner     String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  sessions Session[]
+  account  Account?
+  // posts    Post[]
+  // comments Comments[]
+
+  @@map("user")
+}
+
+model Session {
+  id         String   @id @default(dbgenerated("snowflake()"))
+  expires_at DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user_id    String
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("session")
+}
+
+model Account {
+  id             String   @id @default(dbgenerated("snowflake()"))
+  user_id        String   @unique
+  email_verified Boolean  @default(false)
+  password       String?
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("account")
+}
+
+// model Comments {
+//   id              String   @id @default(dbgenerated("snowflake()"))
+//   parent_id       String
+//   author_id       String
+//   body            String
+//   post_id         String?
+//   created_at      DateTime @default(now())
+//   update_at       DateTime @updatedAt
+//   vote_count_up   Int      @default(0)
+//   vote_count_down Int      @default(0)
+
+//   user User @relation(fields: [author_id], references: [id])
+
+//   @@map("comments")
+// }
+
+// model PostFiles {
+//   id      String @id @default(dbgenerated("snowflake()"))
+//   url     String
+//   post_id String
+
+//   post Post @relation(fields: [post_id], references: [id])
+
+//   @@map("post_files")
+// }
+
+// model Post {
+//   id         String   @id @default(dbgenerated("snowflake()"))
+//   date       DateTime @default(now())
+//   name       String
+//   comment_id String
+//   author_id  String
+
+//   author User        @relation(fields: [author_id], references: [id])
+//   files  PostFiles[]
+
+//   @@map("post")
+// }
+
+// model VoteComments {
+//   id         String   @id @default(dbgenerated("snowflake()"))
+//   user_id    String
+//   comment_id String
+//   vote       Boolean
+//   created_at DateTime @default(now())
+
+//   @@map("vote_comments")
+// }
